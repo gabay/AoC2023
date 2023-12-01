@@ -1,0 +1,6 @@
+/target
+
+inputs/*
+!inputs/README.md
+
+.vscode
