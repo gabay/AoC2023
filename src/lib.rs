@@ -13,3 +13,7 @@ pub fn readfile(path: &str) -> String {
         .trim_matches('\n')
         .to_string()
 }
+
+pub fn to_i32(v: &str) -> i32 {
+    v.parse::<i32>().unwrap()
+}
