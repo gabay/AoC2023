@@ -4,3 +4,4 @@ inputs/*
 !inputs/README.md
 
 .vscode
+Cargo.lock
