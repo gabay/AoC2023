@@ -23,10 +23,10 @@ fn part2(input: &str) -> usize {
     count_distances_between_all_pairs(&board, 999999)
 }
 
-fn count_distances_between_all_pairs(board: &Vec<Vec<char>>, empty_cell_weight: usize) -> usize {
-    let empty_rows = get_empty_rows(&board);
-    let empty_cols = get_empty_cols(&board);
-    let points = aoc2023::Point::find_multiple_in_board('#', &board);
+fn count_distances_between_all_pairs(board: &[Vec<char>], empty_cell_weight: usize) -> usize {
+    let empty_rows = get_empty_rows(board);
+    let empty_cols = get_empty_cols(board);
+    let points = aoc2023::Point::find_multiple_in_board('#', board);
     let mut result = 0;
     for i in 0..points.len() {
         for j in 0..i {
@@ -45,7 +45,7 @@ fn count_distances_between_all_pairs(board: &Vec<Vec<char>>, empty_cell_weight: 
     result
 }
 
-fn get_empty_rows(board: &Vec<Vec<char>>) -> Vec<usize> {
+fn get_empty_rows(board: &[Vec<char>]) -> Vec<usize> {
     board
         .iter()
         .enumerate()
@@ -53,15 +53,9 @@ fn get_empty_rows(board: &Vec<Vec<char>>) -> Vec<usize> {
         .collect()
 }
 
-fn get_empty_cols(board: &Vec<Vec<char>>) -> Vec<usize> {
+fn get_empty_cols(board: &[Vec<char>]) -> Vec<usize> {
     (0..board[0].len())
-        .filter_map(|x| {
-            if board.iter().all(|row| row[x] != '#') {
-                Some(x)
-            } else {
-                None
-            }
-        })
+        .filter(|x| board.iter().all(|row| row[*x] != '#'))
         .collect()
 }
 

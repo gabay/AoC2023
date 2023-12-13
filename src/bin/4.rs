@@ -53,7 +53,7 @@ impl Card {
     fn score(&self) -> i32 {
         match self.win_numbers.intersection(&self.my_numbers).count() {
             0 => 0,
-            n => (2 as i32).pow((n - 1) as u32),
+            n => 2_i32.pow((n - 1) as u32),
         }
     }
     fn score2(&self) -> usize {

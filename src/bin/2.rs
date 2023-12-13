@@ -10,7 +10,7 @@ fn main() {
 fn part1(input: &str) -> i32 {
     input
         .split('\n')
-        .map(|line| Game::from(line))
+        .map(Game::from)
         .filter(Game::is_feasible)
         .map(|game| game.id)
         .sum()
@@ -41,7 +41,7 @@ impl From<&str> for Game {
             .unwrap()
             .as_str()
             .split(';')
-            .map(|set| Set::from(set))
+            .map(Set::from)
             .collect();
         Self { id, sets }
     }
@@ -56,7 +56,7 @@ impl Game {
         let red = self.sets.iter().map(|set| set.red).max().unwrap();
         let green = self.sets.iter().map(|set| set.green).max().unwrap();
         let blue = self.sets.iter().map(|set| set.blue).max().unwrap();
-        return red * green * blue;
+        red * green * blue
     }
 }
 

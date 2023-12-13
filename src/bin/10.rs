@@ -44,12 +44,12 @@ impl Cell {
     }
 }
 
-fn get_loop_greatest_distance(cells: &Vec<Vec<Cell>>) -> i32 {
+fn get_loop_greatest_distance(cells: &[Vec<Cell>]) -> i32 {
     *get_loop(cells).values().max().unwrap()
 }
 
-fn get_loop(cells: &Vec<Vec<Cell>>) -> HashMap<Point, i32> {
-    let start = Point::find_in_board(Cell('S'), &cells);
+fn get_loop(cells: &[Vec<Cell>]) -> HashMap<Point, i32> {
+    let start = Point::find_in_board(Cell('S'), cells);
     let mut distances = HashMap::from([(start, 0)]);
     let mut queue = VecDeque::from([start]);
     while !queue.is_empty() {
@@ -73,14 +73,14 @@ fn get_loop(cells: &Vec<Vec<Cell>>) -> HashMap<Point, i32> {
         }
         if cell.is_connected_down() {
             let np = point.down();
-            if !distances.contains_key(&np) && np.get(&cells).is_some_and(|c| c.is_connected_up()) {
+            if !distances.contains_key(&np) && np.get(cells).is_some_and(|c| c.is_connected_up()) {
                 distances.insert(np, distances[&point] + 1);
                 queue.push_back(np);
             }
         }
         if cell.is_connected_right() {
             let np = point.right();
-            if !distances.contains_key(&np) && np.get(&cells).is_some_and(|c| c.is_connected_left())
+            if !distances.contains_key(&np) && np.get(cells).is_some_and(|c| c.is_connected_left())
             {
                 distances.insert(np, distances[&point] + 1);
                 queue.push_back(np);
@@ -90,7 +90,7 @@ fn get_loop(cells: &Vec<Vec<Cell>>) -> HashMap<Point, i32> {
     distances
 }
 
-fn get_enclosed_size(cells: &Vec<Vec<Cell>>) -> i32 {
+fn get_enclosed_size(cells: &[Vec<Cell>]) -> i32 {
     let mut enclosed_size = 0;
     let loop_points = get_loop(cells).into_keys().collect::<HashSet<_>>();
     for (y, line) in cells.iter().enumerate() {

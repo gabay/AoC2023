@@ -7,7 +7,7 @@ fn main() {
 fn part1(input: &str) -> i32 {
     input
         .split('\n')
-        .map(|line| line.chars().filter(|c| c.is_digit(10)).collect::<Vec<_>>())
+        .map(|line| line.chars().filter(|c| c.is_ascii_digit()).collect::<Vec<_>>())
         .map(|chars| {
             format!("{}{}", chars.first().unwrap(), chars.last().unwrap())
                 .parse::<i32>()
@@ -17,9 +17,7 @@ fn part1(input: &str) -> i32 {
 }
 
 fn part2(input: &str) -> i32 {
-    let numbers = vec![
-        "one", "two", "three", "four", "five", "six", "seven", "eight", "nine",
-    ];
+    let numbers = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
     input
         .split('\n')
         .map(|line| {
@@ -30,7 +28,7 @@ fn part2(input: &str) -> i32 {
                     line.replace(*number, format!("{}{}{}", number, i + 1, number).as_str())
                 })
         })
-        .map(|line| line.chars().filter(|c| c.is_digit(10)).collect::<Vec<_>>())
+        .map(|line| line.chars().filter(|c| c.is_ascii_digit()).collect::<Vec<_>>())
         .map(|chars| {
             format!("{}{}", chars.first().unwrap(), chars.last().unwrap())
                 .parse::<i32>()

@@ -18,7 +18,7 @@ fn part1(input: &str) -> u64 {
     let mapper = get_mapper(input);
     get_seeds(input)
         .iter()
-        .map(|seed| mapper.map_to(&seed, "location"))
+        .map(|seed| mapper.map_to(seed, "location"))
         .min()
         .unwrap()
 }
@@ -130,7 +130,7 @@ impl Mapping {
                 unmapped.push(Range {
                     type_: range.type_,
                     start: range.start,
-                    length: length,
+                    length,
                 });
             }
             println!("{:?} {:?}", range, self);
@@ -139,8 +139,8 @@ impl Mapping {
                 let length = range.start + range.length - start;
                 unmapped.push(Range {
                     type_: range.type_,
-                    start: start,
-                    length: length,
+                    start,
+                    length,
                 });
             }
         }
@@ -159,7 +159,7 @@ impl Mapping {
             Some(Range {
                 type_: dest_type,
                 start: mapped_start,
-                length: length,
+                length,
             })
         } else {
             None
@@ -214,14 +214,14 @@ impl Mapper {
                     .filter_map(|mapping| mapping.trymap_range(range, type_)),
             );
         }
-        let mut unmapped = ranges.clone();
+        let mut unmapped = ranges;
         let mut new_unmapped = vec![];
         for mapping in mappings {
             new_unmapped = mapping.get_unmapped(unmapped);
             unmapped = &new_unmapped;
         }
         result.extend(new_unmapped.iter().map(|range| Range {
-            type_: type_,
+            type_,
             start: range.start,
             length: range.length,
         }));

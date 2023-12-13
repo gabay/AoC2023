@@ -57,11 +57,11 @@ struct Location<'a>(&'a str);
 
 impl<'a> Location<'a> {
     fn is_source(&self) -> bool {
-        self.0.chars().last() == Some('A')
+        self.0.ends_with('A')
     }
 
     fn is_dest(&self) -> bool {
-        self.0.chars().last() == Some('Z')
+        self.0.ends_with('Z')
     }
 }
 struct LocationMap<'a> {
@@ -128,7 +128,7 @@ impl<'a> LocationMap<'a> {
             let (_, x, y) = extended_gcd(total_modulus, modulus);
             result = (result * modulus * y) + (remainder * total_modulus * x);
             total_modulus = lcm(total_modulus, modulus);
-            result = result % total_modulus;
+            result %= total_modulus;
         }
         result % total_modulus
     }
@@ -241,7 +241,7 @@ fn extended_gcd(mut a: i128, mut b: i128) -> (i128, i128, i128) {
         v = m2;
     }
     let gcd = b;
-    return (gcd, x, y);
+    (gcd, x, y)
 }
 
 #[cfg(test)]

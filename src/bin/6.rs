@@ -28,7 +28,7 @@ fn part1(input: &str) -> u64 {
 fn part2(input: &str) -> u64 {
     let Some((time, distance)) = input.lines().map(|line| {
         NUMBER_RE
-            .find(&line.replace(" ", ""))
+            .find(&line.replace(' ', ""))
             .unwrap()
             .as_str()
             .parse::<u64>()

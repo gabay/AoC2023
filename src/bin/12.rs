@@ -42,18 +42,10 @@ impl From<char> for Spring {
 
 impl Spring {
     fn can_be_damaged(&self) -> bool {
-        if let Self::Operational = self {
-            false
-        } else {
-            true
-        }
+        !matches!(self, Self::Operational)
     }
     fn can_be_operational(&self) -> bool {
-        if let Self::Damaged = self {
-            false
-        } else {
-            true
-        }
+        !matches!(self, Self::Damaged)
     }
 }
 

@@ -20,7 +20,7 @@ fn part1(input: &str) -> i32 {
         .enumerate()
         .flat_map(|(y, line)| {
             SYMBOL_RE
-                .find_iter(*line)
+                .find_iter(line)
                 .map(move |match_| BBox::from_y_match(y as i32, match_, 1))
         })
         .collect::<Vec<_>>();
@@ -30,7 +30,7 @@ fn part1(input: &str) -> i32 {
         .enumerate()
         .map(|(y, line)| {
             NUMBERS_RE
-                .find_iter(*line)
+                .find_iter(line)
                 .filter(|match_| {
                     BBox::from_y_match(y as i32, *match_, 0).intersect_list(&symbol_bboxes)
                 })
@@ -46,7 +46,7 @@ fn part2(input: &str) -> i32 {
         .iter()
         .enumerate()
         .flat_map(|(y, line)| {
-            NUMBERS_RE.find_iter(*line).map(move |m| {
+            NUMBERS_RE.find_iter(line).map(move |m| {
                 (
                     m.as_str().parse::<i32>().unwrap(),
                     BBox::from_y_match(y as i32, m, 1),
@@ -60,7 +60,7 @@ fn part2(input: &str) -> i32 {
         .enumerate()
         .flat_map(|(y, line)| {
             GEAR_RE
-                .find_iter(*line)
+                .find_iter(line)
                 .map(move |match_| BBox::from_y_match(y as i32, match_, 0))
                 .map(|gear_bbox| {
                     numbers_with_bboxes
@@ -98,7 +98,7 @@ impl BBox {
             && self.right >= other.left
     }
 
-    fn intersect_list(&self, other: &Vec<BBox>) -> bool {
+    fn intersect_list(&self, other: &[BBox]) -> bool {
         other.iter().any(|o| self.intersect(o))
     }
 }
