@@ -1,5 +1,7 @@
+use std::fmt::Debug;
 use std::fs;
 use std::path::Path;
+use std::str::FromStr;
 
 // Common functionality for AoC
 
@@ -20,6 +22,13 @@ pub fn to_i32(v: &str) -> i32 {
 
 pub fn to_u32(v: &str) -> u32 {
     v.parse::<u32>().unwrap()
+}
+
+pub fn parse<T: FromStr>(v: &str) -> T
+where
+    T::Err: Debug,
+{
+    v.parse::<T>().unwrap()
 }
 
 #[derive(Clone, Copy, Hash, PartialEq, Eq, PartialOrd, Ord, Debug)]
@@ -89,4 +98,14 @@ impl Point {
             None
         }
     }
+
+    pub fn set<T: Copy>(&self, board: &mut [Vec<T>], value: T) {
+        if self.is_in_board(board) {
+            board[self.y as usize][self.x as usize] = value;
+        }
+    }
+}
+
+pub fn to_board(s: &str) -> Vec<Vec<char>> {
+    s.lines().map(|line| line.chars().collect()).collect()
 }
