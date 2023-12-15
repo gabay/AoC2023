@@ -35,7 +35,7 @@ lazy_static! {
 impl From<&str> for Game {
     fn from(value: &str) -> Self {
         let capture = GAME_RE.captures(value).unwrap();
-        let id = aoc2023::to_i32(capture.get(1).unwrap().as_str());
+        let id = aoc2023::parse(capture.get(1).unwrap().as_str());
         let sets: Vec<Set> = capture
             .get(2)
             .unwrap()
@@ -74,7 +74,7 @@ impl From<&str> for Set {
     fn from(value: &str) -> Self {
         let (mut red, mut green, mut blue) = (0, 0, 0);
         for capture in SET_RE.captures_iter(value) {
-            let number = aoc2023::to_i32(capture.get(1).unwrap().as_str());
+            let number = aoc2023::parse(capture.get(1).unwrap().as_str());
             match capture.get(2).unwrap().as_str() {
                 "red" => red = number,
                 "green" => green = number,

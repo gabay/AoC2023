@@ -9,7 +9,7 @@ fn main() {
 fn part1(input: &str) -> i32 {
     input
         .lines()
-        .map(|line| line.split(' ').map(aoc2023::to_i32).collect_vec())
+        .map(|line| line.split(' ').map(aoc2023::parse).collect_vec())
         .map(deduce_next_value)
         .sum()
 }
@@ -17,7 +17,7 @@ fn part1(input: &str) -> i32 {
 fn part2(input: &str) -> i32 {
     input
         .lines()
-        .map(|line| line.split(' ').map(aoc2023::to_i32).collect_vec())
+        .map(|line| line.split(' ').map(aoc2023::parse).collect_vec())
         .map(deduce_previous_value)
         .sum()
 }

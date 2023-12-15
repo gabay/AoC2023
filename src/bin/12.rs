@@ -58,7 +58,7 @@ impl From<&str> for Row {
     fn from(value: &str) -> Self {
         let (springs_str, summary_str) = value.split_once(' ').unwrap();
         let springs = springs_str.chars().map(Spring::from).collect();
-        let summary = summary_str.split(',').map(aoc2023::to_i32).collect();
+        let summary = summary_str.split(',').map(aoc2023::parse).collect();
         Self { springs, summary }
     }
 }

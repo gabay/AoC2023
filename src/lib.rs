@@ -16,14 +16,6 @@ pub fn readfile(path: &str) -> String {
         .to_string()
 }
 
-pub fn to_i32(v: &str) -> i32 {
-    v.parse::<i32>().unwrap()
-}
-
-pub fn to_u32(v: &str) -> u32 {
-    v.parse::<u32>().unwrap()
-}
-
 pub fn parse<T: FromStr>(v: &str) -> T
 where
     T::Err: Debug,
