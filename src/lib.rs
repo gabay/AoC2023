@@ -96,8 +96,45 @@ impl Point {
             board[self.y as usize][self.x as usize] = value;
         }
     }
+
+    pub fn step(&self, d: Direction) -> Self {
+        match d {
+            Direction::Up => self.up(),
+            Direction::Left => self.left(),
+            Direction::Down => self.down(),
+            Direction::Right => self.right(),
+        }
+    }
 }
 
 pub fn to_board(s: &str) -> Vec<Vec<char>> {
     s.lines().map(|line| line.chars().collect()).collect()
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub enum Direction {
+    Up,
+    Left,
+    Down,
+    Right
+}
+
+impl Direction {
+    pub fn rotate_left(&self) -> Self {
+        match self {
+            Self::Up => Self::Left,
+            Self::Left => Self::Down,
+            Self::Down => Self::Right,
+            Self::Right => Self::Up,
+        }
+    }
+
+    pub fn rotate_right(&self) -> Self {
+        match self {
+            Self::Up => Self::Right,
+            Self::Left => Self::Up,
+            Self::Down => Self::Left,
+            Self::Right => Self::Down,
+        }
+    }
 }
