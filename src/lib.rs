@@ -111,12 +111,18 @@ pub fn to_board(s: &str) -> Vec<Vec<char>> {
     s.lines().map(|line| line.chars().collect()).collect()
 }
 
+pub fn to_num_board(s: &str) -> Vec<Vec<i32>> {
+    s.lines()
+        .map(|line| line.chars().map(|c| (c as i32) - ('0' as i32)).collect())
+        .collect()
+}
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub enum Direction {
     Up,
     Left,
     Down,
-    Right
+    Right,
 }
 
 impl Direction {
