@@ -105,6 +105,15 @@ impl Point {
             Direction::Right => self.right(),
         }
     }
+
+    pub fn steps(&self, d: Direction, n: i32) -> Self {
+        match d {
+            Direction::Up => Self::new(self.x, self.y - n),
+            Direction::Left => Self::new(self.x - n, self.y),
+            Direction::Down => Self::new(self.x, self.y + n),
+            Direction::Right => Self::new(self.x + n, self.y),
+        }
+    }
 }
 
 pub fn to_board(s: &str) -> Vec<Vec<char>> {
@@ -141,6 +150,27 @@ impl Direction {
             Self::Left => Self::Up,
             Self::Down => Self::Left,
             Self::Right => Self::Down,
+        }
+    }
+
+    pub fn opposite(&self) -> Self {
+        match self {
+            Self::Up => Self::Down,
+            Self::Left => Self::Right,
+            Self::Down => Self::Up,
+            Self::Right => Self::Left,
+        }
+    }
+}
+
+impl From<&str> for Direction {
+    fn from(value: &str) -> Self {
+        match value.chars().next().unwrap() {
+            'u' | 'U' => Direction::Up,
+            'd' | 'D' => Direction::Down,
+            'l' | 'L' => Direction::Left,
+            'r' | 'R' => Direction::Right,
+            _ => panic!("Cannot crete direction from '{}'", value),
         }
     }
 }
