@@ -23,6 +23,14 @@ where
     v.parse::<T>().unwrap()
 }
 
+pub fn minmax<T: Ord>(a: T, b: T) -> (T, T) {
+    if a <= b {
+        (a, b)
+    } else {
+        (b, a)
+    }
+}
+
 #[derive(Clone, Copy, Hash, PartialEq, Eq, PartialOrd, Ord, Debug)]
 pub struct Point {
     pub x: i32,
