@@ -20,7 +20,7 @@ pub fn parse<T: FromStr>(v: &str) -> T
 where
     T::Err: Debug,
 {
-    v.parse::<T>().unwrap()
+    v.trim().parse::<T>().unwrap()
 }
 
 pub fn minmax<T: Ord>(a: T, b: T) -> (T, T) {
